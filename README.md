@@ -1,2 +1,2 @@
-##Desafio 3 - Nectar
+### Desafio 3 - Nectar
 Utilizando a  API do Nectar Web para listar os contatos de uma base aleatória (em ordem alfabética), permita o usuário editar o contato. A tela no aplicativo pode ficar a seu critério, neste desafio você irá trabalhar a manipulação de dados com o JavaScript.
