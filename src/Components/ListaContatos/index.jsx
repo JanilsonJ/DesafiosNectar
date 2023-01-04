@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const ListaContatos = () => {
+const ListaContatos = ({navigation}) => {
     const NECTAR_API_TOKEN = `api_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjMxODQzNTYsImV4cCI6MTY5NDcyMDIxNywidXNlckxvZ2luIjoiMUBuZWN0YXIuY29tIiwidXNlcklkIjoiMjY2IiwidXN1YXJpb01hc3RlcklkIjoiMjY1In0.VgTsTd2SRAXCazn0oyaAkgp4-YPSMcIBgbuw3WGwgAM`
 
     const [data, setData] = useState(null);
@@ -35,7 +35,7 @@ const ListaContatos = () => {
             return (
                 <View key={contato.id} style={styles.contato}>
                     <Text style={styles.contato_nome}>{contato.nome}</Text>
-                    <Pressable style={styles.editar_contato_button}>
+                    <Pressable style={styles.editar_contato_button} onPress={() => navigation.navigate('EditarContato', {id: contato.id})}>
                         <Text style={styles.editar_contato_button_text}>Editar</Text>
                     </Pressable>
                 </View>
@@ -44,19 +44,25 @@ const ListaContatos = () => {
     }
 
     return (
-        <View style={styles.contatos}>
-            <Text style={styles.contatos_title}>Contatos</Text>
-            {isFetching ? <Text>Carregando Lista...</Text> : listarContatos()}
+        <View style={styles.container}>
+            <View style={styles.contatos}>
+                <Text style={styles.contatos_title}>Contatos</Text>
+                {isFetching ? <Text>Carregando Lista...</Text> : listarContatos()}
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    contatos: {
+    container: {
         flex: 1,
-        width: '90%',
+        width: '100%',
+        alignItems: 'center',
         backgroundColor: '#fff',
         justifyContent: 'center',
+    },
+    contatos: {
+        width: '90%',
     },
     contatos_title: {
         textAlign: 'center',

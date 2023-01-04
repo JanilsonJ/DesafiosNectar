@@ -1,9 +1,10 @@
+import { Text } from "react-native";
 
-const EditarContato = (props) => {
+const EditarContato = ({navigation, route}) => {
 
     return (
         <>
-        
+            <Text>Editando o usuario de id: {route.params.id}</Text>
         </>
     )
 }
