@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { API_TOKEN } from '@env'
+
 const useFetch = (path, options = null) => {
     const [data, setData] = useState(null);
     const [isFetching, setIsFetching] = useState(true);
@@ -8,7 +10,7 @@ const useFetch = (path, options = null) => {
     const fetchOptions = {
         method: 'GET',
         headers: new Headers({
-            'Access-Token': `***`,
+            'Access-Token': API_TOKEN,
         })
     }
 
