@@ -1,31 +1,8 @@
-import { useEffect, useState } from "react";
-
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import useFetch from "../../Hooks/useFetch";
 
 const ListaContatos = ({navigation}) => {
-    const [data, setData] = useState(null);
-    const [isFetching, setIsFetching] = useState(true);
-
-    const fetchOptions = {
-        method: 'GET',
-        headers: new Headers({
-            'Access-Token': `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjMxODQzNTYsImV4cCI6MTY5NDcyMDIxNywidXNlckxvZ2luIjoiMUBuZWN0YXIuY29tIiwidXNlcklkIjoiMjY2IiwidXN1YXJpb01hc3RlcklkIjoiMjY1In0.VgTsTd2SRAXCazn0oyaAkgp4-YPSMcIBgbuw3WGwgAM`,
-        })
-    }
-
-    useEffect(() => {
-        fetch('https://app.nectarcrm.com.br/crm/api/1/contatos?attribute=nome&attribute=id', fetchOptions)
-        .then((response) => response.json())
-        .then((data) => {
-            setData(data);
-        })
-        .catch((err) => {
-            setData(null);
-        })
-        .finally(() => {
-            setIsFetching(false);
-        });
-    }, [])
+    const {data, isFetching} = useFetch('https://app.nectarcrm.com.br/crm/api/1/contatos?attribute=nome&attribute=id')
 
     const ordermAlfabetica = (arr) => {
         return arr.sort(function (a, b) {
