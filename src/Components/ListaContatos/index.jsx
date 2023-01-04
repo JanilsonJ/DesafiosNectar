@@ -1,4 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import useFetch from "../../Hooks/useFetch";
 
 const ListaContatos = ({navigation}) => {
@@ -17,8 +20,8 @@ const ListaContatos = ({navigation}) => {
             return (
                 <View key={contato.id} style={styles.contato}>
                     <Text style={styles.contato_nome}>{contato.nome}</Text>
-                    <Pressable style={styles.editar_contato_button} onPress={() => navigation.navigate('EditarContato', {id: contato.id})}>
-                        <Text style={styles.editar_contato_button_text}>Editar</Text>
+                    <Pressable style={styles.visualizar_contato} onPress={() => navigation.navigate('DadosContato', {id: contato.id})}>
+                        <Icon name="account-eye" size={20} color="#fcfcfc" />
                     </Pressable>
                 </View>
             )
@@ -68,13 +71,13 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginLeft: 10,
     },
-    editar_contato_button: {
-        backgroundColor: '#129237',
+    visualizar_contato: {
+        backgroundColor: '#fe9f04',
         marginLeft: 10,
         borderRadius: 5,
         padding: 8,
     },
-    editar_contato_button_text: {
+    visualizar_contato_text: {
         color: '#FCFCFC',
         fontSize: 10,
         fontWeight: '600',

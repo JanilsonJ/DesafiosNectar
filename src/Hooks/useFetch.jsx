@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 
 import { API_TOKEN } from '@env'
 
-const useFetch = (path, options = null) => {
+const useFetch = (path, method = 'GET', body = null) => {
     const [data, setData] = useState(null);
     const [isFetching, setIsFetching] = useState(true);
     const [error, setError] = useState(null);
 
     const fetchOptions = {
-        method: 'GET',
+        method: method,
+        body: body,
         headers: new Headers({
             'Access-Token': API_TOKEN,
         })
