@@ -10,5 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 
+src/Hooks/useFetch.jsx
+
 # macOS
 .DS_Store
