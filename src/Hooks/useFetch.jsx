@@ -9,28 +9,33 @@ const useFetch = (path, method = 'GET', body = null) => {
 
     const fetchOptions = {
         method: method,
-        body: body,
+        body: body ? JSON.stringify(body) : null,
         headers: new Headers({
             'Access-Token': API_TOKEN,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         })
     }
 
-    useEffect(() => {
-        fetch(path, fetchOptions)
+    const requisitarAPI = async () => {
+        setIsFetching(true);
+
+        await fetch(path, fetchOptions)
         .then((response) => response.json())
         .then((data) => {
             setData(data);
         })
         .catch((err) => {
+            console.log('Erro: ' + err)
             setData(null);
             setError(err);
         })
         .finally(() => {
             setIsFetching(false);
         });
-    }, [])
+    }
 
-    return {data, error, isFetching}
+    return {data, error, isFetching, requisitarAPI}
 }
 
 export default useFetch;

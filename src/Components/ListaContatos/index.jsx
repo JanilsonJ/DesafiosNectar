@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -5,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useFetch from "../../Hooks/useFetch";
 
 const ListaContatos = ({navigation}) => {
-    const {data, isFetching} = useFetch('https://app.nectarcrm.com.br/crm/api/1/contatos?attribute=nome&attribute=id')
+    const {data, isFetching, requisitarAPI} = useFetch('https://app.nectarcrm.com.br/crm/api/1/contatos?attribute=nome&attribute=id')
 
     const ordermAlfabetica = (arr) => {
         return arr.sort(function (a, b) {
@@ -13,6 +14,10 @@ const ListaContatos = ({navigation}) => {
         });
     }
 
+    useEffect(() => {
+        requisitarAPI();
+    }, [])
+    
     const listarContatos = () => {
         ordermAlfabetica(data);
 

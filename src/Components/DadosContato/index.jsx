@@ -1,12 +1,19 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import useFetch from "../../Hooks/useFetch";
 
 const DadosContato = ({navigation, route}) => {
-    
-    const {data: contato, isFetching} = useFetch(`https://app.nectarcrm.com.br/crm/api/1/contatos/${route.params.id}`)
+    const isFocused = useIsFocused()
+
+    const {data: contato, isFetching, requisitarAPI} = useFetch(`https://app.nectarcrm.com.br/crm/api/1/contatos/${route.params.id}`)
+
+    useEffect(() => {
+        requisitarAPI();
+    }, [isFocused])
 
     const tratarNomeDoDado = (nome) => {
         nome = nome.split(/(?=[A-ZÀ-Ú])/).join(' ');
@@ -15,10 +22,10 @@ const DadosContato = ({navigation, route}) => {
 
     const campoDeInformação = (dado) => {
         return (
-            <View style={styles.campo_dados}>
+            <View key={dado} style={styles.campo_dados}>
                 <Text style={styles.campo_dados_text}>{tratarNomeDoDado(dado)}: </Text>
                 <Text style={styles.campo_dados_text_input}>{contato[dado]}</Text>
-                <Pressable> 
+                <Pressable onPress={() => navigation.navigate('EditarDado', {nomeDado: dado, dado: contato[dado], idContato: route.params.id})}> 
                     <Icon name="pencil-square-o" size={15} color="#379f76" />
                 </Pressable>
             </View>
@@ -39,9 +46,9 @@ const DadosContato = ({navigation, route}) => {
     }
 
     return (
-        <View style={styles.container_dados}>
+        <ScrollView style={styles.container_dados}>
             {isFetching ? <Text>Carregando Dados...</Text> : dadosContato()}
-        </View>
+        </ScrollView>
     )
 }
 
@@ -55,8 +62,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#5c5c5c',
         borderBottomWidth: 5,
-        marginBottom: 5,
+        marginBottom: 8,
         padding: 5,
     },
     campo_dados_text: {
