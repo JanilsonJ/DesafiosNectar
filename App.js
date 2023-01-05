@@ -1,8 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import EditarContato from './src/Components/EditarContato';
+import DadosContato from './src/Components/DadosContato';
 import ListaContatos from './src/Components/ListaContatos';
+import EditarDado from './src/Components/EditarDado';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,9 +17,14 @@ export default function App() {
           options={{title: 'Lista de Contatos'}}
         />
         <Stack.Screen
-          name='EditarContato'
-          component={EditarContato}
-          options={{title: 'Editar Contato'}}
+          name='DadosContato'
+          component={DadosContato}
+          options={{title: 'Dados Contato'}}
+        />
+        <Stack.Screen
+          name='EditarDado'
+          component={EditarDado}
+          options={{title: 'Editando Contato'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
