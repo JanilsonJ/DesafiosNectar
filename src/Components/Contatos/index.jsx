@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import useFetch from "../../Hooks/useFetch";
 
-const ListaContatos = ({navigation}) => {
+const Contatos = ({navigation}) => {
     const {data, isFetching, requisitarAPI} = useFetch('https://app.nectarcrm.com.br/crm/api/1/contatos?attribute=nome&attribute=id')
 
     const ordermAlfabetica = (arr) => {
@@ -34,12 +34,9 @@ const ListaContatos = ({navigation}) => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.contatos}>
-                <Text style={styles.contatos_title}>Contatos</Text>
-                {isFetching ? <Text>Carregando Lista...</Text> : listarContatos()}
-            </View>
-        </View>
+        <ScrollView style={styles.container}>
+            {isFetching ? <Text>Carregando Lista...</Text> : listarContatos()}
+        </ScrollView>
     )
 }
 
@@ -47,29 +44,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-    },
-    contatos: {
-        width: '90%',
-    },
-    contatos_title: {
-        textAlign: 'center',
-        color: '#fe9f04',
-        fontWeight: '700',
-        fontSize: 24,
-        marginBottom: 15,
+        backgroundColor: '#fcfcfc',
     },
     contato: {
+        width: '90%',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignSelf: 'center',
         alignItems: 'center',
         borderRadius: 10,
         borderColor: '#999',
         borderEndWidth: 5,
         borderBottomWidth: 5,
-        margin: 4,
+        margin: 5,
     },
     contato_nome: {
         fontWeight: '600',
@@ -89,4 +76,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ListaContatos;
+export default Contatos;
