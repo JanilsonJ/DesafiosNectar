@@ -1,5 +1,5 @@
 ### NectarCRM
-  Desafios de capacitação mobile <strong>NectarCRM</strong>
+  Desafios de capacitação mobile(React Native) da <strong>NectarCRM</strong>
   
 ## Dificuldade baixa
   <strong>Desafio 1:</strong>
