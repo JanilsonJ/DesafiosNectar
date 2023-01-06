@@ -1,6 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import useFetch from "../../Hooks/useFetch";
 
@@ -30,6 +30,9 @@ const Tarefas = () => {
     }
 
     const aplicarFiltro = (e, novoStatus) => {
+        if(isFetching)
+            return
+            
         setAbertoIsPressed(false);
         setConcluidoIsPressed(false);
         setCanceladaIsPressed(false);
@@ -52,9 +55,9 @@ const Tarefas = () => {
         <View style={styles.container_tarefas}>
             <View style={styles.filtros}>
                 <Text>Filtar por: </Text>
-                <TouchableHighlight style={[styles.status_button, abertoIsPressed ? styles.status_button_active : null]} onPress={(e) => aplicarFiltro(e, '0')}>
+                <TouchableOpacity style={[styles.status_button, abertoIsPressed ? styles.status_button_active : null]} onPress={(e) => aplicarFiltro(e, '0')}>
                     <Text style={styles.status_button_text}>Abertas</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
 
                 <TouchableOpacity style={[styles.status_button, concluidoIsPressed ? styles.status_button_active : null]} onPress={(e) => aplicarFiltro(e, '1')}>
                     <Text style={styles.status_button_text}>Concluídas</Text>
@@ -74,8 +77,10 @@ const Tarefas = () => {
 
 const styles = StyleSheet.create({  
     container_tarefas: {
+        flex: 1,
+        justifyContent: 'center',
         padding: 10,
-        backgroundColor: '#FFF'
+        backgroundColor: '#FFF',
     },
     filtros: {
         flexDirection: 'row',
